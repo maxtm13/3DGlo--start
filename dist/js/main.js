@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("my menu"),console.log("my slider"),console.log("one.js"),console.log("two.js")})();

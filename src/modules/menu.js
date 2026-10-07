@@ -4,21 +4,25 @@ const menu = () => {
   const closeBtn = menu.querySelector(".close-btn");
   const menuItems = menu.querySelectorAll("ul>li>a");
   const sliderLink = document.querySelector("main > a");
+
   const scrollToHref = function (e) {
-    e.preventDefault();
     document
-      .querySelector(this.attributes.href.value)
+      .querySelector(e.attributes.href.value)
       .scrollIntoView({ block: "center", behavior: "smooth" });
   };
   const handleMenu = function () {
     menu.classList.toggle("active-menu");
   };
   menuBtn.addEventListener("click", handleMenu);
-  closeBtn.addEventListener("click", handleMenu);
-  menuItems.forEach((menuItem) => {
-    menuItem.addEventListener("click", handleMenu);
-    menuItem.addEventListener("click", scrollToHref);
+  menu.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.dir(e.target);
+    if (e.target.tagName === "A") {
+      if (!e.target.closest(".close-btn")) {
+        scrollToHref(e.target);
+      }
+      handleMenu();
+    }
   });
-  sliderLink.addEventListener("click", scrollToHref);
 };
 export default menu;

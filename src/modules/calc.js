@@ -33,13 +33,16 @@ const calc = (price = 100) => {
     } else {
       totalValue = 0;
     }
-		let i = 0;
-		setInterval(() => {
-			if (i < totalValue) {
-					i +=5;
-			total.textContent = i
-			} else return
-		}, 5);
+
+		animate({
+			duration: 500,
+			timing(timeFraction) {
+				return timeFraction;
+			},
+			draw(progress) {
+				total.textContent = Math.trunc(progress * totalValue);
+			}
+		});
   };
   calcBlock.addEventListener("input", (e) => {
     if (

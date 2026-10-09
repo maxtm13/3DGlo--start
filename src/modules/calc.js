@@ -32,7 +32,13 @@ const calc = (price = 100) => {
     } else {
       totalValue = 0;
     }
-		total.innerText = totalValue
+		let i = 0;
+		setInterval(() => {
+			if (i < totalValue) {
+					i +=5;
+			total.textContent = i
+			} else return
+		}, 5);
   };
   calcBlock.addEventListener("input", (e) => {
     if (

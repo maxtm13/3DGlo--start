@@ -1,17 +1,21 @@
+import {animate} from './helper'
 const modal = () => {
   const popupBtns = document.querySelectorAll(".popup-btn");
   const popup = document.querySelector(".popup");
   const closeBtn = popup.querySelector(".popup-close");
   let popupPosition = 30;
   let count;
+	
   const openModal = () => {
-    count++;
-    let position = count * 2;
-    let id = requestAnimationFrame(openModal);
-    popup.querySelector(".popup-content").style.top = position + "%";
-    if (position > popupPosition) {
-      cancelAnimationFrame(id);
-    }
+		animate({
+			duration: 300,
+			timing(timeFraction) {
+				return timeFraction;
+			},
+			draw(progress) {
+				popup.querySelector(".popup-content").style.top = progress * popupPosition + '%';
+			}
+		});
   };
   popupBtns.forEach((element) => {
     element.addEventListener("click", () => {

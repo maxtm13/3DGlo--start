@@ -1,3 +1,4 @@
+import {animate} from './helper'
 const calc = (price = 100) => {
   const inputText = document.querySelectorAll("input.calc-item");
   const calcBlock = document.querySelector(".calc-block");
@@ -50,5 +51,6 @@ const calc = (price = 100) => {
       caountCalc();
     }
   });
+	
 };
 export default calc;

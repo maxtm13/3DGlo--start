@@ -4,6 +4,8 @@ const sendForm = ({ formId, someElement = [] }) => {
 	const sendText = 'Данные отправляются...'
 	const errorText = 'Ошибка...'
 	const successText = 'Данные отправлены. Мы вам перезвоним.'
+	const preloader = document.createElement('section')
+	preloader.insertAdjacentHTML('beforeend', '<div class="sk-rotating-plane"></div>')
 	let success
 
 	const validate = (list) => {
@@ -16,7 +18,6 @@ const sendForm = ({ formId, someElement = [] }) => {
 						success = success && false;
 						item.style.border = '3px solid red'
 					}
-					
 					break;
 				case item.getAttribute('name') === 'user_email':
 					if (!/^[a-z\_\-\(\) \`\!\~\*\.@]+$/gi.test(item.value)){
@@ -32,7 +33,6 @@ const sendForm = ({ formId, someElement = [] }) => {
 					break;
 				default:
 					break;
-				
 			}
 		})
 		return success
@@ -49,8 +49,8 @@ const sendForm = ({ formId, someElement = [] }) => {
 	const submitForm = ()=> {
 		const formData = new FormData(form)
 		const formBody = {}
-		statusBlock.innerText = sendText
-		form.append(statusBlock)
+		statusBlock.remove()
+		
 		const formElements = form.querySelectorAll('input')
 		formData.forEach((val, key) => {
 			formBody[key] = val
@@ -64,18 +64,28 @@ const sendForm = ({ formId, someElement = [] }) => {
 			}
 		})
 		if (validate(formElements)) {
+			statusBlock.remove()
+			form.append(preloader)
+			form.style.position = 'relative'
 			sendData(formBody)
 				.then(data => {
-					statusBlock.innerText = successText
+					preloader.remove();
 					formElements.forEach(el => {
 						el.value = ''
 					})
+					statusBlock.innerText = successText
+					form.append(statusBlock)
 				})
 				.catch(error => {
+					preloader.remove();
 					statusBlock.innerText = errorText
+					form.append(statusBlock)
+					console.log("Ошибка при отправке ", error);
+					
 				})
 		} else {
 			statusBlock.innerText ='Ошибка валидации формы'
+			form.append(statusBlock)
 		}
 	}
 	try {

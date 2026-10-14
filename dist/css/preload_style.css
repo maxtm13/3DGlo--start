@@ -1,0 +1,32 @@
+section {
+	flex: 1 1 25%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.sk-rotating-plane {
+	width: 4em;
+	height: 4em;
+	margin: auto;
+	opacity: 0.8;
+	background-color: #337ab7;
+	-webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
+	animation: sk-rotating-plane 1.2s infinite ease-in-out;
+} 
+
+@-webkit-keyframes sk-rotating-plane {
+	0% {
+		transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+	}
+
+	50% {
+		transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+	}
+
+	100% {
+		transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+	}
+}
